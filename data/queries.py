@@ -16,8 +16,8 @@ def get_most_rated_shows(page, order_by='rating', order_direction='desc'):
         FROM shows
         ORDER BY {order_by} {order_direction}
         LIMIT 15
-        OFFSET ({page}-1)*15;
-        '''
+        OFFSET ((%(page)s)-1)*15;
+        ''', {"page": page}
     )
 
 
@@ -27,8 +27,8 @@ def get_genres_from_show(show_id):
         SELECT genres.name, show_id
         FROM show_genres
         JOIN genres ON genres.id = genre_id
-        WHERE show_id = {show_id};
-        """
+        WHERE show_id = %(show_id)s;
+        """, {"show_id": show_id}
     )
 
 
@@ -37,5 +37,48 @@ def get_show_count():
         f"""
         SELECT COUNT(*) AS show_count 
         FROM shows;
+        """
+    )
+
+
+def get_show_data(id):
+    return data_manager.execute_select(
+        f"""
+        SELECT title, runtime, overview, trailer, rating
+        FROM shows
+        WHERE id = {id};
+        """
+    )
+
+
+def get_show_actors(id):
+    return data_manager.execute_select(
+        f"""
+        SELECT DISTINCT name
+        FROM actors
+        JOIN show_characters
+        ON actors.id = show_characters.actor_id
+        WHERE show_id = {id}
+        LIMIT 3;
+        """
+    )
+
+
+def get_seasons(id):
+    return data_manager.execute_select(
+        f"""
+        SELECT season_number, title, overview
+        FROM seasons
+        WHERE {id} = show_id;
+        """
+    )
+
+
+def get_100_actors():
+    return data_manager.execute_select(
+        f"""
+        SELECT id, name
+        FROM actors
+        LIMIT 100;
         """
     )

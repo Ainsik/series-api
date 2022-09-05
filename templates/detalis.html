@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta charset="UTF-8" />
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta
@@ -8,9 +9,8 @@
 			content="initial-scale=1, maximum-scale=1, user-scalable=no"
 		/>
 
-		<title>CsED</title>
+		<title>Show details</title>
 
-		<!-- Import Montserrat font -->
 		<link
 			href="https://fonts.googleapis.com/css?family=Montserrat"
 			rel="stylesheet"
@@ -20,13 +20,11 @@
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 		/>
-		<!-- Normalize.css fixes lot of differences between browsers default styles -->
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"
 		/>
 
-		<!-- project wide styling -->
 		<link
 			rel="stylesheet"
 			href="{{ url_for('static', filename='style/site.css') }}"
@@ -68,21 +66,20 @@
 			href="{{ url_for('static', filename='style/utils.css') }}"
 		/>
 
-		<!-- page specific styling -->
 		<link
 			rel="stylesheet"
 			href="{{ url_for('static', filename='style/detailed-view.css') }}"
 		/>
 	</head>
-
 	<body>
 		<div id="body-wrapper">
 			<header class="clearfix">
-				<img
-					id="header-logo"
-					src="{{ url_for('static', filename='assets/codecool-logo.png') }}"
-					alt="Codecool Logo"
-				/>
+				<a href="/"
+					><img
+						id="header-logo"
+						src="{{ url_for('static', filename='assets/codecool-logo.png') }}"
+						alt="Codecool Logo"
+				/></a>
 				<span id="header-title" class="title">Codecool Series DB</span>
 				<div id="header-auth">
 					<button type="button" id="bt-register">Register</button>
@@ -90,33 +87,53 @@
 				</div>
 			</header>
 			<section>
-				<h1 class="title text-center">Welcome page</h1>
+				<h1 class="title text-center">{{ show_data['title'] }}</h1>
 				<div class="card">
-					<h2>Welcome TV show lovers!</h2>
-					<p>
-						This great site is happy to bring you your favourite TV show's
-						<i>details</i>.
-					</p>
-					<p></p>
-					<p>Okay, actually this is a designed dumb page without any logic.</p>
-					<p>
-						You can find a navigational element, the so called "breadcrumb"
-						above the page's title. Use it for in-depth navigation.
-					</p>
-					<a href="http://127.0.0.1:5000/shows/most-rated"
-						>To most rated shows</a
-					>
+					<div>Rating: {{ show_data['rating'] | round(1) }} ☆</div>
+					<div>
+						Runtime: {% if show_data['runtime'] // 60 != 0 %} {{
+						show_data['runtime'] // 60 }}h {% endif %} {% if
+						show_data['runtime'] % 60 != 0 %} {{ show_data['runtime'] % 60 }}min
+						{% endif %}
+					</div>
+					<div>{{ show_data['overview'] }}</div>
+					<p>Actors:</p>
+					{% for actor in show_actors %} {{ actor['name'] + ", " if not
+					loop.last else actor['name'] }} {% endfor %}
+					<div>
+						{% for genre in show_genres %} {{ genre['name']+", " if not
+						loop.last else genre['name'] }} {% endfor %}
+					</div>
+					{% if show_data['trailer'] %}
+					<div>
+						<input
+							type="hidden"
+							id="trailerId"
+							value="{{ show_data['trailer'][27:] }}"
+						/>
+						<div id="player"></div>
+						<script
+							src="../static/js/embed-youtube.js"
+							type="application/javascript"
+						></script>
+					</div>
+					{% endif %}
 				</div>
 				<div class="card">
-					<ul>
-						{% for show in shows %}
-						<li>
-							<a href="{{ '/tv-show/' + (show['id'] | string) }}"
-								>{{ show['title'] }}</a
-							>
-						</li>
+					<table>
+						<tr>
+							<th>Season number</th>
+							<th>Title</th>
+							<th>Overview</th>
+						</tr>
+						{% for season in seasons %}
+						<tr>
+							<td>{{ season['season_number'] }}</td>
+							<td>{{ season['title'] }}</td>
+							<td>{{ season['overview'] }}</td>
+						</tr>
 						{% endfor %}
-					</ul>
+					</table>
 				</div>
 			</section>
 			<footer>Copyright, bla-bla</footer>

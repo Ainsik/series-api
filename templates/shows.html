@@ -128,7 +128,7 @@
 							</th>
 							<th>Genres</th>
 							<th>Trailer</th>
-							<th>Home Page</th>
+							<th>Homepage</th>
 						</tr>
 						{% for show in shows %}
 						<tr>
@@ -143,19 +143,19 @@
 							<td>
 								{% if show['trailer'] %}
 								<a href="{{ show['trailer'] }}">Link</a>
-								{% else %} None {% endif %}
+								{% else %} No URL {% endif %}
 							</td>
 							<td>
 								{% if show['homepage'] %}
 								<a href="{{ show['homepage'] }}">Link</a>
-								{% else %} None {% endif %}
+								{% else %} No URL {% endif %}
 							</td>
 						</tr>
 						{% endfor %}
 					</table>
 					<div class="page-select">
 						{% if 'most-rated' in url %} {% set link = '/shows/most-rated' %} {%
-						else %} {% set link = '/shows' %} {% endif %} {% if page != 1 %}
+						endif %} {% if page != 1 %}
 						<a
 							href="{{ link }}/{{ page - 1 }}?{{ order_by }}={{ order_direction }}"
 							><<</a
@@ -177,7 +177,7 @@
 					</div>
 				</div>
 			</section>
-			<footer>Copyright, bla-bla</footer>
+			<footer>Copyright, Ainsik</footer>
 		</div>
 		<div class="background">
 			<div class="dark-blue-layer"></div>

@@ -8,9 +8,7 @@
 			content="initial-scale=1, maximum-scale=1, user-scalable=no"
 		/>
 
-		<title>CsED</title>
-
-		<!-- Import Montserrat font -->
+		<title>Actors</title>
 		<link
 			href="https://fonts.googleapis.com/css?family=Montserrat"
 			rel="stylesheet"
@@ -20,13 +18,11 @@
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 		/>
-		<!-- Normalize.css fixes lot of differences between browsers default styles -->
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"
 		/>
 
-		<!-- project wide styling -->
 		<link
 			rel="stylesheet"
 			href="{{ url_for('static', filename='style/site.css') }}"
@@ -68,21 +64,22 @@
 			href="{{ url_for('static', filename='style/utils.css') }}"
 		/>
 
-		<!-- page specific styling -->
 		<link
 			rel="stylesheet"
 			href="{{ url_for('static', filename='style/detailed-view.css') }}"
 		/>
+		<script type="module" src="../static/js/actors.js"></script>
 	</head>
 
 	<body>
 		<div id="body-wrapper">
 			<header class="clearfix">
-				<img
-					id="header-logo"
-					src="{{ url_for('static', filename='assets/codecool-logo.png') }}"
-					alt="Codecool Logo"
-				/>
+				<a href="/"
+					><img
+						id="header-logo"
+						src="{{ url_for('static', filename='assets/codecool-logo.png') }}"
+						alt="Codecool Logo"
+				/></a>
 				<span id="header-title" class="title">Codecool Series DB</span>
 				<div id="header-auth">
 					<button type="button" id="bt-register">Register</button>
@@ -90,30 +87,12 @@
 				</div>
 			</header>
 			<section>
-				<h1 class="title text-center">Welcome page</h1>
-				<div class="card">
-					<h2>Welcome TV show lovers!</h2>
-					<p>
-						This great site is happy to bring you your favourite TV show's
-						<i>details</i>.
-					</p>
-					<p></p>
-					<p>Okay, actually this is a designed dumb page without any logic.</p>
-					<p>
-						You can find a navigational element, the so called "breadcrumb"
-						above the page's title. Use it for in-depth navigation.
-					</p>
-					<a href="http://127.0.0.1:5000/shows/most-rated"
-						>To most rated shows</a
-					>
-				</div>
+				<h1 class="title text-center">Actors</h1>
 				<div class="card">
 					<ul>
-						{% for show in shows %}
-						<li>
-							<a href="{{ '/tv-show/' + (show['id'] | string) }}"
-								>{{ show['title'] }}</a
-							>
+						{% for actor in actors %}
+						<li data-id="{{ actor['id'] }}" class="actors">
+							{{ actor['name'] }}
 						</li>
 						{% endfor %}
 					</ul>
