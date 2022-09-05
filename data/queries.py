@@ -2,7 +2,12 @@ from data import data_manager
 
 
 def get_shows():
-    return data_manager.execute_select('SELECT id, title FROM shows;')
+    return data_manager.execute_select("""SELECT s.id, s.title, to_char(s.year, 'YYYY') AS year, s.runtime, to_char(s.rating::float, '999.9') AS rating, 
+    string_agg(g.name, ', ' ORDER BY g.name) AS genres, s.trailer, s.homepage 
+    FROM shows s
+    JOIN show_genres sg ON s.id = sg.show_id
+    JOIN genres g ON sg.genre_id = g.id
+    GROUP BY s.id;""")
 
 
 def get_most_rated_shows(page, order_by='rating', order_direction='desc'):
