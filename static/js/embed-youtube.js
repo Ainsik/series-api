@@ -1,8 +1,6 @@
 // script from https://developers.google.com/youtube/iframe_api_reference
 
 // 2. This code loads the IFrame Player API code asynchronously.
-var videoLink = document.getElementById("trailerId").value;
-document.getElementById("trailerId").remove();
 var tag = document.createElement("script");
 
 tag.src = "https://www.youtube.com/iframe_api";
