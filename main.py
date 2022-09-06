@@ -35,10 +35,9 @@ def all_shows(page=1):
         return render_template("error.html")
 
 
-@app.route('/shows/most-rated')
-@app.route('/shows/most-rated/<int:page>')
-def most_rated(page=1):
-    order_by, order_direction = 'rating', 'desc'
+@app.route('/shows/<order_by>=<order_direction>')
+@app.route('/shows/<order_by>=<order_direction>/<int:page>')
+def most_rated(page=1, order_by='rating' ,order_direction='DESC'):
     if request.args:
         order_by = list(dict(request.args).keys())[0]
         order_direction = dict(request.args)[order_by]
@@ -49,7 +48,7 @@ def most_rated(page=1):
     if page <= page_count:
         return render_template('rated.html', shows=most_rated_shows,
         shown_pages=shown_pages, page_count=page_count,
-        page=page, url=request.url, order_by=order_by,
+        page=page, order_by=order_by,
         order_direction=order_direction)
     else:
         return render_template("error.html")
