@@ -20,6 +20,7 @@ def index():
 def design():
     return render_template('design.html')
 
+
 @app.route('/shows')
 @app.route('/shows/most-rated')
 @app.route('/shows/most-rated/<int:page>')
@@ -32,7 +33,6 @@ def most_rated(page=1):
     page_count = math.ceil(number_of_shows/15)
     shown_pages = pagination.check_pages(page, page_count)
     most_rated_shows = queries.get_most_rated_shows(page, order_by, order_direction)
-    get_rated_shows(most_rated_shows)
     if page <= page_count:
         return render_template('shows.html', shows=most_rated_shows,
         shown_pages=shown_pages, page_count=page_count,
@@ -42,25 +42,23 @@ def most_rated(page=1):
         return render_template("error.html")
 
 
-def get_rated_shows(most_rated_shows):
-    for show in most_rated_shows:
-        genres = []
-        show_id = show['id']
-        get_genres = queries.get_genres_from_show(show_id)
-        for genre in get_genres:
-            genres.append(genre['name'])
-        show['genres'] = genres
-    return most_rated_shows
-
-
 @app.route('/show/<id>')
 def show_details(id):
-    show_data = queries.get_show_data(id)[0]
-    show_genres = queries.get_genres_from_show(id)
-    show_actors = queries.get_show_actors(id)
-    seasons = queries.get_seasons(id)
-    return render_template('detalis.html', show_data=show_data, 
-        show_actors=show_actors, show_genres=show_genres, seasons=seasons)
+    if int(id) in check_id():
+        show_data = queries.get_show_data(id)[0]
+        show_genres = queries.get_genres_from_show(id)
+        show_actors = queries.get_show_actors(id)
+        seasons = queries.get_seasons(id)
+        return render_template('detalis.html', show_data=show_data, 
+            show_actors=show_actors, show_genres=show_genres, seasons=seasons)
+    else: 
+        return render_template("error.html")
+
+
+def check_id():
+    all_id = queries.get_all_id()
+    id_list = [row["id"] for row in all_id]
+    return id_list
 
 
 @app.route('/actors')
