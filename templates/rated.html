@@ -4,33 +4,33 @@
 <main>
 	{% block main %}
 	<div class="card">
-		{% set curr_link = url.split('?')[0] %}
 		<table>
+			{% set link = '/shows' %} 
 			<tr>
 				<th>
 					<a
-						href="{{ curr_link }}?title={% if order_direction == 'desc' and order_by == 'title' %}asc{% else %}desc{% endif %}"
+						href="{{ link }}/title={% if order_direction == 'desc' and order_by == 'title' %}asc{% else %}desc{% endif %}/{{ page }}"
 						>{% if order_by == 'title' and order_direction == 'desc' %}⇩ {% elif
 						order_by == 'title' %}⇧ {% endif %}Title</a
 					>
 				</th>
 				<th>
 					<a
-						href="{{ curr_link }}?year={% if order_direction == 'desc' and order_by == 'year' %}asc{% else %}desc{% endif %}"
+						href="{{ link }}/year={% if order_direction == 'desc' and order_by == 'year' %}asc{% else %}desc{% endif %}/{{ page }}"
 						>{% if order_by == 'year' and order_direction == 'desc' %}⇩ {% elif
 						order_by == 'year' %}⇧ {% endif %}Year</a
 					>
 				</th>
 				<th>
 					<a
-						href="{{ curr_link }}?runtime={% if order_direction == 'desc' and order_by == 'runtime'%}asc{% else %}desc{% endif %}"
+						href="{{ link }}/runtime={% if order_direction == 'desc' and order_by == 'runtime'%}asc{% else %}desc{% endif %}/{{ page }}"
 						>{% if order_by == 'runtime' and order_direction == 'desc' %}⇩ {%
 						elif order_by == 'runtime' %}⇧ {% endif %}Runtime (min)</a
 					>
 				</th>
 				<th>
 					<a
-						href="{{ curr_link }}?rating={% if order_direction == 'desc' and order_by == 'rating'%}asc{% else %}desc{% endif %}"
+						href="{{ link }}/rating={% if order_direction == 'desc' and order_by == 'rating'%}asc{% else %}desc{% endif %}/{{ page }}"
 						>{% if order_by == 'rating' and order_direction == 'desc' %}⇩ {%
 						elif order_by == 'rating' %}⇧ {% endif %}Rating</a
 					>
@@ -60,26 +60,21 @@
 			{% endfor %}
 		</table>
 		<div class="page-select">
-			{% if 'most-rated' in url %} 
-			{% set link = '/shows/most-rated' %} 
-			<a href="{{ link }}/1">&#9198</a>
-			{% endif%} {% if page != 1 %}
-			<a href="{{ link }}/{{ page - 1 }}?{{ order_by }}={{ order_direction }}"
-				>&#9194</a
-			>
-			{% endif %} {% for shown_page in shown_pages %} {% if shown_page == page
-			%}
-			<b>{{ shown_page }}</b>
+			{% set link = '/shows' %} 
+			<a href="{{ link }}/{{ order_by }}={{ order_direction }}/1">&#9198</a>
+			{% if page != 1 %}
+			<a href="{{ link }}/{{ order_by }}={{ order_direction }}/{{ page-1 }}"
+				>&#9194</a>
+			{% endif %} {% for shown_page in shown_pages %} {% if shown_page == page%}
+			<span class="chosen-one">{{ shown_page }}</span>
 			{% else %}
-			<a href="{{ link }}/{{ shown_page }}?{{ order_by }}={{ order_direction }}"
-				>{{ shown_page }}</a
-			>
+			<a href="{{ link }}/{{ order_by }}={{ order_direction }}/{{ shown_page }}"
+				>{{ shown_page }}</a>
 			{% endif %} {% endfor %} {% if page != page_count %}
-			<a href="{{ link }}/{{ page + 1 }}?{{ order_by }}={{ order_direction }}"
-				>&#9193</a
-			>
+			<a href="{{ link }}/{{ order_by }}={{ order_direction }}/{{ page + 1 }}"
+				>&#9193</a>
 			{% endif %}
-			<a href="{{ link }}/68">&#9197</a>
+			<a href="{{ link }}/{{ order_by }}={{ order_direction }}/68">&#9197</a>
 		</div>
 	</div>
 	{% endblock %}
