@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, jsonify
+from flask import Flask, render_template, request, jsonify, url_for
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -12,8 +12,7 @@ app = Flask('codecool_series')
 
 @app.route('/')
 def index():
-    shows = queries.get_shows()
-    return render_template('index.html', shows=shows)
+    return render_template('index.html')
 
 
 @app.route('/design')
@@ -22,6 +21,20 @@ def design():
 
 
 @app.route('/shows')
+@app.route('/shows/<int:page>')
+def all_shows(page=1):
+    number_of_shows = queries.get_show_count()[0]['show_count']
+    page_count = math.ceil(number_of_shows/15)
+    shown_pages = pagination.check_pages(page, page_count)
+    shows = queries.get_shows(page)
+    if page <= page_count:
+        return render_template('shows.html', shows=shows,
+        shown_pages=shown_pages, page_count=page_count,
+        page=page)
+    else:
+        return render_template("error.html")
+
+
 @app.route('/shows/most-rated')
 @app.route('/shows/most-rated/<int:page>')
 def most_rated(page=1):
@@ -34,7 +47,7 @@ def most_rated(page=1):
     shown_pages = pagination.check_pages(page, page_count)
     most_rated_shows = queries.get_most_rated_shows(page, order_by, order_direction)
     if page <= page_count:
-        return render_template('shows.html', shows=most_rated_shows,
+        return render_template('rated.html', shows=most_rated_shows,
         shown_pages=shown_pages, page_count=page_count,
         page=page, url=request.url, order_by=order_by,
         order_direction=order_direction)
