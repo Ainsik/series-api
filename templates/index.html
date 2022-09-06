@@ -14,39 +14,7 @@
 			You can find a navigational element, the so called "breadcrumb" above the
 			page's title. Use it for in-depth navigation.
 		</p>
-		<a href="http://127.0.0.1:5000/shows">To most rated shows</a>
-	</div>
-	<div class="card">
-		<table>
-			<tr>
-				<th>Title</th>
-				<th>Year</th>
-				<th>Runtime (min)</th>
-				<th>Rating</th>
-				<th>Genres</th>
-				<th>Trailer</th>
-				<th>Homepage</th>
-			</tr>
-			{% for show in shows %}
-			<tr>
-				<td>{{ show['title'] }}</td>
-				<td>{{ show['year'] }}</td>
-				<td>{{ show['runtime'] }} min</td>
-				<td>{{ show['rating'] }}</td>
-				<td>{{ show['genres'] }}</td>
-				<td>
-					{% if show['trailer'] %}
-					<a href="{{ show['trailer'] }}">Link</a>
-					{% else %} No URL {% endif %}
-				</td>
-				<td>
-					{% if show['homepage'] %}
-					<a href="{{ show['homepage'] }}">Link</a>
-					{% else %} No URL {% endif %}
-				</td>
-			</tr>
-			{% endfor %}
-		</table>
+		<a href="http://127.0.0.1:5000/shows">To shows!</a>
 	</div>
 	{% endblock %}
 </main>
