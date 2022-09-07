@@ -1,3 +1,4 @@
+from unicodedata import name
 from flask import Flask, render_template, request, jsonify, url_for
 from data import queries
 import math
@@ -73,10 +74,17 @@ def check_id():
     return id_list
 
 
+def get_actors():
+    get_actors= queries.get_100_actors()
+    actors = [row["name"] for row in get_actors]
+    first_names = [actor.split()[0] for actor in actors]
+    return first_names
+
+
 @app.route('/actors')
 def actors():
-    get_actors = queries.get_100_actors()
-    return render_template('actors.html', actors=get_actors)
+    get_first_names = get_actors()
+    return render_template('actors.html', actors=get_first_names)
 
 
 def main():

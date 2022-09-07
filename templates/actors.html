@@ -4,11 +4,11 @@
 <main>
 	{% block main %}
 	<div class="card">
-		<ul>
+		<ol>
 			{% for actor in actors %}
-			<li data-id="{{ actor['id'] }}" class="actors">{{ actor['name'] }}</li>
+			<li data-id="{{ actor['id'] }}" class="actors">{{ actor }}</li>
 			{% endfor %}
-		</ul>
+		</ol>
 	</div>
 	<script type="module" src="../static/js/actors.js"></script>
 	{% endblock %}
