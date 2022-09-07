@@ -95,9 +95,43 @@ def get_seasons(id):
 def get_100_actors():
     return data_manager.execute_select(
         f"""
-        SELECT id, name
-        FROM actors
-        ORDER BY birthday
+        SELECT a.id, a.name, string_agg(s.title,', ' ORDER BY s.title) AS title, string_agg(sc.character_name,', ' ORDER BY sc.character_name) AS character_name, a.biography FROM actors a
+        JOIN show_characters sc ON sc.actor_id=a.id
+        JOIN shows s ON sc.show_id=s.id
+        GROUP BY a.id
+        ORDER BY a.birthday
         LIMIT 100;
         """
     )
+
+def get_100_names():
+    return data_manager.execute_select(
+        f"""
+        SELECT a.name FROM actors a
+        ORDER BY a.birthday
+        LIMIT 100;
+        """
+    )
+
+# def get_100_actors():
+#     return data_manager.execute_select(
+#         f"""
+#         SELECT id, name
+#         FROM actors
+#         ORDER BY birthday
+#         LIMIT 100;
+#         """
+#     )
+
+
+
+
+
+    
+# def get_actor_info(id):
+#     return data_manager.execute_select(
+#         f'''SELECT a.id, a.name, sc.character_name, a.biography FROM actors a
+#             JOIN show_characters sc ON sc.actor_id=a.id
+#             JOIN shows s ON sc.show_id=s.id
+#             WHERE a.id = {id};'''
+#     )

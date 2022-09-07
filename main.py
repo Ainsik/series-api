@@ -74,7 +74,7 @@ def show_details(id):
 
 
 def get_actors():
-    get_actors= queries.get_100_actors()
+    get_actors= queries.get_100_names()
     actors = [row["name"] for row in get_actors]
     first_names = [actor.split()[0] for actor in actors]
     return first_names
@@ -82,8 +82,7 @@ def get_actors():
 
 def get_actors_id():
     get_actors= queries.get_100_actors()
-    ids = [row["id"] for row in get_actors]
-    return ids
+    return get_actors
 
 
 def reunion():

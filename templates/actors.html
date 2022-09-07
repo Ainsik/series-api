@@ -6,13 +6,25 @@
 	<div class="card">
 		<ol>
 			{% for actor in actors %}
-			<li data-id="{{ actor[0] }}" class="actors">
+			<li data-id="{{ actor[0]['id'] }}" class="actors">
 				<button class="name">{{ actor[1] }}</button>
 			</li>
-			<div class="hiden"></div>
+			<div class="hiden">
+				<br />
+				<div>
+					Full name: <span>{{actor[0]['name']}}</span> played as
+					<span>{{actor[0]['character_name']}}</span> in the movie
+					<span>{{actor[0]['title']}}.</span>
+				</div>
+				<br />
+				{% if actor[0]['biography'] %}
+				<div>Biography: <span>{{actor[0]['biography']}}</span></div>
+				{% endif %}
+				<br />
+			</div>
 			{% endfor %}
 		</ol>
 	</div>
-	<script type="module" src="../static/js/actors.js"></script>
+	<script src="/static/js/actors.js"></script>
 	{% endblock %}
 </main>
