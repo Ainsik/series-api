@@ -97,6 +97,7 @@ def get_100_actors():
         f"""
         SELECT id, name
         FROM actors
+        ORDER BY birthday
         LIMIT 100;
         """
     )
