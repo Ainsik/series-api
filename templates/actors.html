@@ -6,7 +6,10 @@
 	<div class="card">
 		<ol>
 			{% for actor in actors %}
-			<li data-id="{{ actor[0] }}" class="actors">{{ actor[1] }}</li>
+			<li data-id="{{ actor[0] }}" class="actors">
+				<button class="name">{{ actor[1] }}</button>
+			</li>
+			<div class="hiden"></div>
 			{% endfor %}
 		</ol>
 	</div>
