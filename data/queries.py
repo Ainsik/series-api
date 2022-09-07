@@ -112,26 +112,3 @@ def get_100_names():
         LIMIT 100;
         """
     )
-
-# def get_100_actors():
-#     return data_manager.execute_select(
-#         f"""
-#         SELECT id, name
-#         FROM actors
-#         ORDER BY birthday
-#         LIMIT 100;
-#         """
-#     )
-
-
-
-
-
-    
-# def get_actor_info(id):
-#     return data_manager.execute_select(
-#         f'''SELECT a.id, a.name, sc.character_name, a.biography FROM actors a
-#             JOIN show_characters sc ON sc.actor_id=a.id
-#             JOIN shows s ON sc.show_id=s.id
-#             WHERE a.id = {id};'''
-#     )
