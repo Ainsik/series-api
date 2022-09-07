@@ -1,4 +1,3 @@
-from unicodedata import name
 from flask import Flask, render_template, request, jsonify, url_for
 from data import queries
 import math
@@ -55,6 +54,12 @@ def most_rated(page=1, order_by='rating' ,order_direction='DESC'):
         return render_template("error.html")
 
 
+def check_id():
+    all_id = queries.get_all_id()
+    id_list = [row["id"] for row in all_id]
+    return id_list
+
+
 @app.route('/show/<id>')
 def show_details(id):
     if int(id) in check_id():
@@ -68,12 +73,6 @@ def show_details(id):
         return render_template("error.html")
 
 
-def check_id():
-    all_id = queries.get_all_id()
-    id_list = [row["id"] for row in all_id]
-    return id_list
-
-
 def get_actors():
     get_actors= queries.get_100_actors()
     actors = [row["name"] for row in get_actors]
@@ -81,10 +80,23 @@ def get_actors():
     return first_names
 
 
+def get_actors_id():
+    get_actors= queries.get_100_actors()
+    ids = [row["id"] for row in get_actors]
+    return ids
+
+
+def reunion():
+    get_ids = get_actors_id()
+    get_first_names = get_actors()
+    result = zip(get_ids, get_first_names)
+    return list(result)
+
+
 @app.route('/actors')
 def actors():
-    get_first_names = get_actors()
-    return render_template('actors.html', actors=get_first_names)
+    actors = reunion()
+    return render_template('actors.html', actors = actors)
 
 
 def main():
