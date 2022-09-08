@@ -112,3 +112,14 @@ def get_100_names():
         LIMIT 100;
         """
     )
+
+def pa_query(year_from, year_to):
+    return data_manager.execute_select(
+            f"""
+            SELECT name, birthday from actors
+            WHERE
+            birthday < %{year_to}s
+            AND birthday >=  %{year_from}s
+            ORDER BY name ASC
+            """, {"year_to": year_to, "year_from": year_from}
+         )

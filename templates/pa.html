@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+<title>{% block title %}PA{% endblock %}</title>
+<h1 class="title text-center">{% block h1 %}PA{% endblock %}</h1>
+<main>
+	{% block main %}
+	<div class="card">
+		<form method="post">
+			<label for="year_from">Year from:</label><br />
+			<input type="text" id="year_from" name="year_from" required /><br /><br />
+			<label for="year_to">Year to:</label><br />
+			<input type="text" id="year_to" name="year_to" required />
+			<button type="submit">Find</button>
+		</form>
+	</div>
+	<script src="/static/js/pa.js"></script>
+	{% endblock %}
+</main>
