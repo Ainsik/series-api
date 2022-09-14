@@ -120,3 +120,9 @@ def execute_dml_statement(statement, variables=None):
             except psycopg2.ProgrammingError as pe:
                 pass
     return result
+
+
+def execute(statement, variables=None):
+    with establish_connection() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+            cursor.execute(statement, variables)

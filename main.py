@@ -15,6 +15,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
+
 @app.route('/design')
 def design():
     return render_template('design.html')
@@ -96,6 +101,21 @@ def reunion():
 def actors():
     actors = reunion()
     return render_template('actors.html', actors = actors)
+
+
+@app.route('/pa')
+def start():
+    return render_template('pa.html')
+
+
+@app.route('/pa', methods=['POST'])
+@json_response
+def pa():
+    data = dict(request.json)
+    year_from = data['year_from']
+    year_to = data['year_to']
+    actors = queries.pa_query(year_from, year_to)
+    return {'actors': actors}
 
 
 def main():
