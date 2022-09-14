@@ -118,8 +118,21 @@ def pa_query(year_from, year_to):
             f"""
             SELECT name, birthday from actors
             WHERE
-            birthday < %{year_to}s
-            AND birthday >=  %{year_from}s
+            birthday > '{year_from}'
+            AND birthday <= '{year_to}'
             ORDER BY name ASC
-            """, {"year_to": year_to, "year_from": year_from}
+            """,
          )
+
+# def pa_query(year_from, year_to):
+#     return data_manager.execute_select('''
+#     SELECT
+#         name,
+#         birthday
+#     FROM actors
+#     WHERE TO_CHAR(birthday, 'YYYY')::integer BETWEEN %(from)s AND %(to)s
+#     ORDER BY name DESC
+#     ''', {
+#         "from": year_from,
+#         "to": year_to
+#     })

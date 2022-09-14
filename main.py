@@ -112,7 +112,6 @@ def start():
 @json_response
 def pa():
     data = dict(request.json)
-    print(data)
     year_from = data['year_from']
     year_to = data['year_to']
     actors = queries.pa_query(year_from, year_to)
