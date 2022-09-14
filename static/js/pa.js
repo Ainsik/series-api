@@ -1,36 +1,27 @@
-async function apiGet(url) {
-	let response = await fetch(url, {
-		method: "GET",
-	});
-	if (response.ok) {
-		return await response.json();
-	}
-}
-
 async function apiPost(url, year_from, year_to) {
-	let response = await fetch(url, {
+	await fetch(url, {
 		headers: {
 			Accept: "application/json",
 			"Content-Type": "application/json",
 		},
 		method: "POST",
-		body: JSON.stringify(year_from, year_to),
-	});
-	if (response.ok) {
-		return await response.json();
-	}
+		body: JSON.stringify({ year_from, year_to }),
+	})
+		.then((res) => res.json())
+		.then((data) => {
+			const ulist = document.querySelector("ul");
+			ulist.innerHTML = "";
+			data.actors.forEach((element) => {
+				const li = document.createElement("li");
+				ulist.appendChild(li);
+				li.textContent = element.name;
+			});
+		});
 }
 
-async function paGet() {
-	return await apiGet("/pa");
-}
-async function paPost() {
-	return await apiPost("/pa", { year_from: year_from }, { year_to: year_to });
-}
 
-function init() {
-	paGet();
-	paPost();
-}
-
-init();
+const form = document.querySelector("#form");
+form.addEventListener("submit", (event) => {
+	event.preventDefault();
+	apiPost("/pa", event.target[0].value, event.target[1].value);
+});
