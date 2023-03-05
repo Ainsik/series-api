@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+<title>{% block title %}Welcome{% endblock %}</title>
+<h1 class="title text-center">{% block h1 %}Welcome page{% endblock %}</h1>
+<main>
+	{% block main %}
+	<div class="card">
+		<h2>Welcome TV show lovers!</h2>
+		<p>
+			This great site is happy to bring you your favourite TV show's
+			<i>details</i>.
+		</p>
+		<p>Okay, actually this is a designed dumb page without any logic.</p>
+		<p>
+			You can find a navigational element, the so called "breadcrumb" above the
+			page's title. Use it for in-depth navigation.
+		</p>
+		<a href="http://127.0.0.1:5000/shows">To shows!</a><br />
+		<a href="http://127.0.0.1:5000/actors">To actors!</a>
+	</div>
+	{% endblock %}
+</main>

@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+<title>{% block title %}Shows{% endblock %}</title>
+<h1 class="title text-center">{% block h1 %}Shows{% endblock %}</h1>
+<main>
+	{% block main %}
+	<div class="card">
+		<table>
+			<tr>
+				<th><a href="http://127.0.0.1:5000/shows/title=asc/1">Title</a></th>
+				<th><a href="http://127.0.0.1:5000/shows/year=asc/1">Year</a></th>
+				<th><a href="http://127.0.0.1:5000/shows/runtime=asc/1">Runtime (min)</a></th>
+				<th><a href="http://127.0.0.1:5000/shows/rating=asc/1">Rating</a></th>
+				<th>Genres</th>
+				<th>Trailer</th>
+				<th>Homepage</th>
+			</tr>
+			{% for show in shows %}
+			<tr>
+				<td><a href="/show/{{ show['id'] }}">{{ show['title'] }}</a></td>
+				<td>{{ show['year'] }}</td>
+				<td>{{ show['runtime'] }} min</td>
+				<td>{{ show['rating'] }}</td>
+				<td>{{ show['genres'] }}</td>
+				<td>
+					{% if show['trailer'] %}
+					<a href="{{ show['trailer'] }}">Link</a>
+					{% else %} No URL {% endif %}
+				</td>
+				<td>
+					{% if show['homepage'] %}
+					<a href="{{ show['homepage'] }}">Link</a>
+					{% else %} No URL {% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<div class="page-select">
+			{% set link = '/shows' %} 
+			<a href="{{ link }}/1">&#9198</a>
+			{% if page != 1 %}
+			<a href="{{ link }}/{{ page - 1 }}">&#9194</a>
+			{% endif %} {% for shown_page in shown_pages %} {% if shown_page == page
+			%}
+			<span class="chosen-one">{{ shown_page }}</span>
+			{% else %}
+			<a href="{{ link }}/{{ shown_page }}">{{ shown_page }}</a>
+			{% endif %} {% endfor %} {% if page != page_count %}
+			<a href="{{ link }}/{{ page + 1 }}">&#9193</a>
+			{% endif %}
+			<a href="{{ link }}/68">&#9197</a>
+		</div>
+	</div>
+	{% endblock %}
+</main>

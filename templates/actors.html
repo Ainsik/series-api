@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+<title>{% block title %}Actors{% endblock %}</title>
+<h1 class="title text-center">{% block h1 %}Actors{% endblock %}</h1>
+<main>
+	{% block main %}
+	<div class="card">
+		<ol>
+			{% for actor in actors %}
+			<li data-id="{{ actor[0]['id'] }}" class="actors">
+				<div class="name">
+					{{ actor[1] }}
+					<div class="hiden" hidden>
+						<br />
+						<div>
+							Full name: <span>{{actor[0]['name']}}</span> played as
+							<span>{{actor[0]['character_name']}}</span> in the movie
+							<span>{{actor[0]['title']}}.</span>
+						</div>
+						<br />
+						{% if actor[0]['biography'] %}
+						<div>Biography: <span>{{actor[0]['biography']}}</span></div>
+						{% endif %}
+						<br />
+					</div>
+				</div>
+			</li>
+			<br />
+
+			{% endfor %}
+		</ol>
+	</div>
+	<script src="/static/js/actors.js"></script>
+	{% endblock %}
+</main>

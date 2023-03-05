@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{% block title %}Layout{% endblock %}</title>
+		<link
+			href="https://fonts.googleapis.com/css?family=Montserrat"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/site.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/header.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/footer.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/background.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/button.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/card.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/table.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/form.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/grid.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/utils.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style/detailed-view.css') }}"
+		/>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='style/page-select.css') }}"
+        />		
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='style/pagination.css') }}"
+        />
+		<link
+		rel="stylesheet"
+		href="{{ url_for('static', filename='style/chosen-one.css') }}"
+	/>
+	</head>
+    <body>
+		<div id="body-wrapper">
+			<header class="clearfix">
+				<a href="http://127.0.0.1:5000"><img
+					id="header-logo"
+					src="{{ url_for('static', filename='assets/codecool-logo.png') }}"
+					alt="Codecool Logo"
+				/></a>
+				<span id="header-title" class="title">Codecool Series DB</span>
+				<div id="header-auth">
+					<button type="button" id="bt-register">Register</button>
+					<button type="button" id="bt-login">Login</button>
+				</div>
+			</header>
+			<section>
+				<h1 class="title text-center">{% block h1 %}Layout{% endblock %}</h1>
+                    <main id="main">{% block main %}{% endblock %}</main>
+			</section>
+            <footer id="footer">
+				<span>&copy; Copyright 2022 by Ainsik <span class="emoji">&#127909</span></span>
+			</footer>
+		</div>
+		<div class="background">
+			<div class="dark-blue-layer"></div>
+			<div class="light-blue-layer"></div>
+		</div>
+	</body>
+</html>
