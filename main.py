@@ -103,21 +103,6 @@ def actors():
     return render_template('actors.html', actors = actors)
 
 
-@app.route('/pa')
-def start():
-    return render_template('pa.html')
-
-
-@app.route('/pa', methods=['POST'])
-@json_response
-def pa():
-    data = dict(request.json)
-    year_from = data['year_from']
-    year_to = data['year_to']
-    actors = queries.pa_query(year_from, year_to)
-    return {'actors': actors}
-
-
 def main():
     app.run(host='127.0.0.1',
             port=5000,
